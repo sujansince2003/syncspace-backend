@@ -46,7 +46,40 @@ app.post("/translatedoc", async (c) => {
 })
 
 
+app.post("/chatwithdoc", async (c) => {
+	try {
+		const openai = new OpenAI({
+			apiKey: c.env.OPEN_AI_API,
+		});
 
+		const { documentData, question } = await c.req.json();
+
+		const chatCompletion = await openai.chat.completions.create({
+			messages: [
+				{
+					role: "system",
+					content:
+						"You are an assistant helping the user chat with a document. The document content is:\n\n" +
+						documentData
+				},
+				{
+					role: "user",
+					content: "My Question is: " + question,
+				},
+			],
+			model: "gpt-4o-mini",
+			store: true,
+			temperature: 0.5,
+		});
+
+		const response = chatCompletion.choices[0].message.content;
+
+		return c.json({ message: response });
+	} catch (error: any) {
+		console.error("ChatWithDoc error:", error);
+		return c.json({ error: "Internal Server Error", detail: error.message }, 500);
+	}
+});
 
 
 
