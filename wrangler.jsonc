@@ -1,7 +1,4 @@
-/**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
- */
+
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "syncspacebackend",
@@ -9,7 +6,13 @@
 	"compatibility_date": "2025-04-21",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"vars": {
+		"OPEN_AI_API": "your api key"
+	},
+	"ai": {
+		  "binding": "AI"
+		}
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
@@ -22,7 +25,9 @@
 	 * databases, object storage, AI inference, real-time communication and more.
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
 	 */
-
+	 
+		
+	  
 	/**
 	 * Environment Variables
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
